@@ -1,3 +1,4 @@
+//需要magisk  root  auto.js qdread模块
 auto();
 function MyClick(str,index){
     index = index | 0 ;
