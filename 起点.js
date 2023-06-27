@@ -1,4 +1,3 @@
-//需要magisk  root  auto.js qdread模块
 auto();
 function MyClick(str,index){
     index = index | 0 ;
@@ -47,23 +46,31 @@ if (launchApp("起点读书")){
 }else{
     toastLog("启动失败")
 }
-sleep(4000)
-
+sleep(5000)
+var cl=id("fClose").findOnce()
+if(cl!=null){
+    cl.click()
+    }
+sleep(1000)
 //找到我 
 MyClick("我")
 sleep(4000)
 MyClick("福利中心")
 sleep(4000)
 //看视频
+var btn;
 for(let index = 1;index<9;index++){
-    if(!MyClick("看第"+index+"个视频")){
-        continue;
-    }
-    sleep(3500);
+    if(btn==null){
+    btn = text("看第"+index+"个视频").findOnce();}
+    if(btn==null){continue}
+    click(btn.bounds().centerX(),btn.bounds().centerY())
+    
+    sleep(5500);
     if(!MyClick("我知道了")){
+        sleep(4000);
         continue;
     }
-    sleep(5500)
+    sleep(5000)
 }
 
 //限时活动
@@ -74,7 +81,7 @@ let success = 0;
 let videoNum = 3;
 let bookNum = 5;
 for(let index = 0;index<videoNum;index++){
-    if(MyClick("看视频")){
+    if(MyClick("看视频",1)){
         sleep(4000)
         success++;
     }
@@ -89,6 +96,7 @@ if(success == videoNum){
 success = 0
 //看小说
 if(MyClick("去完成",2)){
+    sleep(2500);
     for (let index = 0; index < bookNum; index++) {
        //点击小说
         if(MyClick("阅读",index)){
